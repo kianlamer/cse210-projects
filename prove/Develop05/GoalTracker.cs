@@ -26,7 +26,15 @@ public class GoalTracker
     {
         foreach (var goal in _goals)
         {
-            Console.WriteLine($"{goal.Name} - Progress: {goal.Progress} - Complete: {goal.IsComplete()}");
+            string status = goal.IsComplete() ? "[X]" : "[ ]";
+            if (goal is ChecklistGoal checklistGoal)
+            {
+                Console.WriteLine($"{status} {goal.Name} - Progress: {goal.Progress} - Completed {checklistGoal.CurrentCount}/{checklistGoal.TargetCount} times");
+            }
+            else
+            {
+                Console.WriteLine($"{status} {goal.Name} - Progress: {goal.Progress}");
+            }
         }
     }
 
